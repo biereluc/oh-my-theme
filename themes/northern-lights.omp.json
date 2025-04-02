@@ -10,7 +10,8 @@
     "warning-red": "#ff6b6b"
   },
   "var": {
-    "ShowPromptLineCount": "yes"
+    "ShowPromptLineCount": "yes",
+    "AdminIcon": "\uf0e7"
   },
   "palettes": {
     "list": {
@@ -67,7 +68,7 @@
     "template": "\uf067\u200a",
     "background": "transparent",
     "foreground_templates": [
-      "p:dark-color"
+      "p:light-color"
     ]
   },
   "transient_prompt": {
@@ -78,45 +79,48 @@
     ]
   },
   "error_line": {
-    "template": "\u200a\ue009\u2500❯",
+    "template": "\u200a\ue009❯",
     "foreground": "p:warning-red",
     "background": "transparent"
   },
   "terminal_background": "darkGray",
   "pwd": "osc51",
   "accent_color": "#003543",
-  "console_title_template": "{{.Shell}} {{if .Root}}as admin ⚡ {{end}}{{.UserName}} ",
+  "console_title_template": "{{if .Root}}🔐Admin : {{end}}{{.Shell}} in {{.PWD}} {{if .Root}}⚡{{end}}",
   "blocks": [
     {
       "type": "prompt",
+      "alias": "left_prompt_decorations",
       "alignment": "left",
       "overflow": "break",
       "segments": [
         {
+          "type": "text",
+          "alias": "shield_admin_icon",
           "properties": {
             "cache_duration": "none"
           },
-          "alias": "startup-segment",
           "leading_diamond": "\ue0b6",
           "template": "{{ if .Root }}\u200a\uf132{{ end }}\u200a",
           "foreground": "p:dark-color",
           "background": "p:dark-color",
-          "type": "text",
           "style": "diamond",
           "background_templates": [
             "{{ if .Root }}p:warning-red{{ end }}"
           ]
         },
         {
+          "type": "root",
+          "alias": "dummy-admin-segment-to-display-nice-powerline-symbol",
           "properties": {
             "cache_duration": "none"
           },
-          "alias": "dummy-admin-segment-to-display-nice-powerline-symbol",
+
           "template": "\u200a",
           "powerline_symbol": "\ue0b0",
-          "background": "p:dark-color",
-          "type": "root",
-          "style": "powerline"
+          "style": "powerline",
+          "background": "p:dark-color"
+
         },
         {
           "properties": {
@@ -183,10 +187,13 @@
     },
     {
       "type": "prompt",
+      "alias": "right_prompt_decorations",
       "alignment": "right",
       "overflow": "hide",
       "segments": [
         {
+          "type": "shell",
+          "alias": "shell_name",
           "properties": {
             "cache_duration": "none",
             "mapped_shell_names": {
@@ -199,14 +206,15 @@
           "template": "\uf489\u200a{{ .Name }}\u200a",
           "foreground": "p:light-color",
           "background": "p:dark-color",
-          "type": "shell",
           "style": "diamond"
         },
         {
+          "type": "os",
+          "alias": "os_icon",
           "properties": {
+            "cache_duration": "none",
             "alpine": "\uf300",
             "arch": "\uf303",
-            "cache_duration": "none",
             "centos": "\uf304",
             "debian": "\uf306",
             "elementary": "\uf309",
@@ -225,10 +233,11 @@
           "foreground": "p:dark-color",
           "powerline_symbol": "<r>\ue0b2</r>",
           "background": "p:light-color",
-          "type": "os",
           "style": "powerline"
         },
         {
+          "type": "battery",
+          "alias": "battery_percentage",
           "properties": {
             "cache_duration": "none",
             "charged_icon": "\uf581",
@@ -237,9 +246,8 @@
             "display_error": false,
             "not_charging_icon": "\uf582"
           },
-          "template": "\u200a{{ if not .Error }}{{ .Icon }}<f>{{ .Percentage }}\uf295</f>{{ end }}{{ .Error }}\u200a",
+          "template": "\u200a{{ if not .Error }}{{ .Icon }} <f>{{ .Percentage }}\uf295</f>{{ end }}{{ .Error }}\u200a",
           "powerline_symbol": "<r>\ue0b2</r>",
-          "type": "battery",
           "style": "powerline",
           "foreground_templates": [
             "{{if eq \"Charging\" .State.String}}p:warning-red{{end}}",
@@ -253,29 +261,32 @@
           ]
         },
         {
+          "type": "sysinfo",
+          "alias": "memory_usage_percent",
           "properties": {
             "cache_duration": "none",
             "precision": 2
           },
-          "alias": "memory",
-          "template": "\uf85a{{ round .PhysicalPercentUsed .Precision }}\uf295\u200a",
+          "template": "\uf85a {{ round .PhysicalPercentUsed .Precision }}\uf295\u200a",
           "foreground": "p:dark-color",
           "powerline_symbol": "<r>\ue0b2</r>",
           "background": "p:light-color",
-          "type": "sysinfo",
           "style": "powerline"
         },
         {
+          "type": "connection",
+          "alias": "wifi_ethernet_cellular_connection",
           "properties": {
             "cache_duration": "none"
           },
           "template": "{{ if eq .Type \"wifi\"}}\uf1eb{{ else if eq .Type \"ethernet\"}}\uf6ff{{ else if eq .Type \"cellular\" }}\uf61d{{ end }}\u200a",
           "foreground": "parentForeground",
           "background": "parentBackground",
-          "type": "connection",
           "style": "powerline"
         },
         {
+          "type": "time",
+          "alias": "current_time_with_clock",
           "properties": {
             "cache_duration": "none"
           },
@@ -283,25 +294,25 @@
           "foreground": "p:light-color",
           "powerline_symbol": "<r>\ue0b2</r>",
           "background": "p:dark-color",
-          "type": "time",
           "style": "powerline"
         },
         {
+          "type": "time",
+          "alias": "beauty_end_line_sun_moon",
           "properties": {
             "cache_duration": "none"
           },
-          "alias": "beauty_end",
           "trailing_diamond": "\ue0b4",
           "template": "{{if or (gt (now).Hour 18) (lt (now).Hour 6)}}<p:moon-light>\uf186</>{{ else }}<p:sun-light>\ufaa7</>{{ end }}",
           "foreground": "parentForeground",
           "background": "parentBackground",
-          "type": "time",
           "style": "diamond"
         }
       ]
     },
     {
       "type": "prompt",
+      "alias": "left_prompt_decorations",
       "alignment": "left",
       "segments": [
         {

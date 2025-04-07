@@ -2,6 +2,26 @@
 //https://colordesigner.io/gradient-generator
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "final_space": true,
+  "pwd": "osc51",
+  "terminal_background": "darkGray",
+  "accent_color": "#003543",
+  "shell_integration": true,
+  "enable_cursor_positioning": true,
+  "patch_pwsh_bleed": true,
+  "console_title_template": "{{if .Root }}{{ .Var.emoji_lightning }} Admin : {{ end }}{{ .Shell }}",
+  "upgrade": {
+    "notice": true,
+    "interval": "168h",
+    "auto": false,
+    "source": "github"
+  },
+  "debug_prompt": {
+    "background": "transparent",
+    "foreground": "#ffffff",
+    "template": "Debugging "
+  },
+  "version": 3,
   "palette": {
     "color-dark": "#003543",
     "color-light": "#9affdc",
@@ -10,6 +30,7 @@
     "color-night-light": "#90A4AE",
     "color-day-light": "#FFC300",
     "color-alert-accent": "#ff6b6b",
+    "color-warning-accent": "#FFC300",
     "color-battery-state-error": "#ff6b6b",
     "color-battery-15-less": "#df6466",
     "color-battery-30-less": "#bf5d61",
@@ -18,38 +39,38 @@
     "color-battery-70-less": "#604951",
     "color-battery-90-less": "#40424c",
     "color-battery-100-less": "#203b47",
-    "color-battery-100": "#003442"
+    "color-battery-100": "#003442",
+    "color-exec-normal": "#FFC300",
+    "color-exec-slow": "#905359",
+    "color-exec-longer": "#ff6b6b"
   },
   "var": {
-    "IsShowPromptCount": "yes",
-    "lightning": "⚡",
+    "var_enable_prompt_count": "true",
     "HairSpace": "\u2008",
-    "BigArrow": "─❯",
-    "PlusCross": "\uf0e7",
-    "nf_fa_plus": "\uf067",
-    "SunUnicode": "\u2600",
-    "Sun_nf_fa_sun": "\udb81\udda8",
-    "Sun": "\ufaa7",
-    "Moon_nf-fa-moon": "\uf186",
-    "Moon": "\ue285",
-    "nf-fae-bigger": "\ue285",
-    "nf-pom-internal_interruption": "\ue009",
-    "transient_prompt_symbol": "\ue285 ",
-    "valid_line_symbol": "\uf00c",
-    "error_line_symbol": "\uea87 ❯",
-    "secondary_prompt_symbol": "+   ",
-    "Clock": "\uf017",
-    "WiFi": "\uf1eb",
-    "ethernet": "\udb80\ude00",
+    "emoji_lightning": "⚡",
+    "symbol_prompt_arrow": "❯",
+    "symbol_valid_line_arrow": "\uf00c",
+    "symbol_error_line_arrow": "\uea87 ❯",
+    "symbol_transient_prompt": "\ue285 ",
+    "symbol_secondary_prompt_plus": "+   ",
+    "ico_shield": "\ued25",
+    "ico_ssh": "\ueba9",
+    "ico_lightning": "\uf0e7",
+    "ico_timer_sand": "\udb81\udead",
+    "ico_check": "\uf42e",
+    "ico_error": "\uf00d",
+    "ico_terminal": "\uea85",
+    "ico_memory": "\udb80\udf5b",
+    "ico_percent": "\uf295",
+    "ico_wifi_network": "\uf1eb",
+    "ico_ethernet_network": "\udb80\ude00",
+    "ico_cellular_network": "\udb82\udcbf",
+    "ico_calendar": "\udb80\udced",
+    "ico_clock": "\uf017",
+    "ico_sun": "\ufaa7",
+    "ico_moon": "\ue285\uf186",
     "ethernet2": "\udb80\ude01",
-    "ethernet3": "\uef44",
-    "cellular": "\udb82\udcbf",
-    "Root_Symbol": "\ued25",
-    "RAM_Icon": "\udb80\udf5b",
-    "Percent_Icon": "\uf295",
-    "Terminal_icon": "\uea85",
-    "Lightning_icon": "\uf0e7",
-    "Calendar_Icon": "\udb80\udced"
+    "ethernet3": "\uef44"
   },
   "palettes": {
     "list": {
@@ -97,130 +118,162 @@
     },
     "template": "{{- $theme := (split \"|\" \"RedWine|Goodmorningsunshine|Halo|midnight|aaa\") -}}{{ $theme }}"
   },
-  // "valid_line": {
-  //   "template": "{{ .Var.valid_line_symbol }}",
-  //   "foreground": "p:color-light",
-  //   "background": "transparent"
-  // },
-  // "error_line": {
-  //   "template": "{{ .Var.error_line_symbol }}",
-  //   "foreground": "p:color-alert-accent",
-  //   "background": "transparent"
-  // },
-  // "secondary_prompt": {
-  //   "template": "{{ .Var.secondary_prompt_symbol }}",
-  //   "background": "transparent",
-  //   "foreground_templates": [
-  //     "p:color-light"
-  //   ]
-  // },
-  // "transient_prompt": {
-  //   "template": "{{ if eq .Var.IsShowPromptCount \"yes\"}}<p:color-light>{{ .PromptCount }}</>{{ .Var.HairSpace }}{{ end }}{{ .Var.transient_prompt_symbol }}",
-  //   "background": "transparent",
-  //   "foreground_templates": [
-  //     "{{ if .Root }}p:color-alert-accent{{ else }}p:color-light{{ end }}"
-  //   ]
-  // },
-  "terminal_background": "darkGray",
-  "pwd": "osc51",
-  "accent_color": "#003543",
-  "console_title_template": "{{if .Root }} Admin : {{ end }}{{ .Shell }}",
+  "valid_line": {
+    "foreground": "p:color-light",
+    "background": "transparent",
+    "template": "{{ .Var.symbol_valid_line_arrow }}"
+  },
+  "error_line": {
+    "foreground": "p:color-alert-accent",
+    "background": "transparent",
+    "template": "{{ .Var.symbol_error_line_arrow }}"
+  },
+  "secondary_prompt": {
+    "foreground": "p:color-light",
+    "background": "transparent",
+    "template": "{{ .Var.symbol_secondary_prompt_plus }}"
+  },
+  "transient_prompt": {
+    "background": "transparent",
+    "foreground": "p:color-light",
+    "foreground_templates": [
+      "{{ if .Root }}p:color-alert-accent{{ end }}"
+    ],
+    "template": "{{ if eq .Var.var_enable_prompt_count \"true\" }}<p:color-light>{{ .PromptCount }}</>{{ .Var.HairSpace }}{{ end }}{{ .Var.symbol_transient_prompt }}"
+  },
   "blocks": [
     {
+      "alias": "Debug Block",
       "type": "prompt",
-      "alias": "left_prompt_decorations",
+      "newline": false,
       "alignment": "left",
-      "overflow": "break",
+      "force": true,
       "segments": [
-        // {
-        //   "type": "text",
-        //   "alias": "shield_admin_icon",
-        //   "properties": {
-        //     "cache_duration": "none"
-        //   },
-        //   "leading_diamond": "\ue0b6",
-        //   "template": "{{ .Var.HairSpace }}{{ if .Root }}{{ .Var.Root_Symbol }}{{ end }}{{ .Var.HairSpace }}",
-        //   "foreground": "p:color-dark",
-        //   "background": "p:color-dark",
-        //   "style": "diamond",
-        //   "background_templates": [
-        //     "{{ if .Root }}p:color-alert-accent{{ end }}"
-        //   ]
-        // },
-        // {
-        //   "type": "root",
-        //   "alias": "dummy-admin-segment-to-display-nice-powerline-symbol",
-        //   "properties": {
-        //     "cache_duration": "none"
-        //   },
-        //   "template": "{{ .Var.HairSpace }}",
-        //   "powerline_symbol": "\ue0b0",
-        //   "style": "powerline",
-        //   "background": "p:color-dark"
-        // },
-        // {
-        //   "type": "session",
-        //   "alias": "run_as_whois_segment",
-        //   "properties": {
-        //     "cache_duration": "none"
-        //   },
-        //   "template": "{{ .UserName }}{{ if.Root }}<p:color-alert-accent>{{ .Var.Lightning_icon }}</>{{ else }}@{{ end }}{{ .HostName }}{{ .Var.HairSpace }}",
-        //   "foreground": "p:color-light",
-        //   "background": "parentBackground",
-        //   "style": "powerline"
-        // },
-        // {
-        //   "type": "path",
-        //   "alias": "current_directory_segment",
-        //   "properties": {
-        //     "cache_duration": "none",
-        //     "folder_icon": "\u2026",
-        //     "folder_separator_icon": "<p:color-dark>\ue0b1</>",
-        //     "home_icon": "\uf015",
-        //     "interactive": true,
-        //     "mapped_locations": {
-        //       "C:\\Users": "\uf007 ",
-        //       "C:\\Windows": "\ue62a ",
-        //       "C:\\Windows\\temp": "\udb86\uddcb ",
-        //       "C:\\temp": "\udb86\uddcb "
-        //     },
-        //     "mapped_locations_enabled": true,
-        //     "mixed_threshold": 4,
-        //     "style": "unique"
-        //   },
-        //   "template": "{{ .Var.HairSpace }}{{ if .Writable }}{{else}}<p:color-alert-accent>\uf023{{ .Var.HairSpace }}{{end}}{{ path .Path .Location}}</>{{ .Var.HairSpace }}",
-        //   "foreground": "p:color-dark",
-        //   "background": "p:color-light",
-        //   "style": "powerline",
-        //   "powerline_symbol": "\ue0b0"
-        // },
         {
+          "alias": "root_variable_segment",
+          "type": "text",
+          "style": "diamond",
+          "leading_diamond": "\ue0b6",
+          "foreground": "p:color-dark",
+          "background": "p:color-warning-accent",
+          "template": "{{.}}"
+        }
+      ]
+    },
+    {
+      "alias": "left_prompt_decorations",
+      "type": "prompt",
+      "newline": true,
+      "alignment": "left",
+      "overflow": "hide",
+      "force": true,
+      "segments": [
+        {
+          "alias": "new_latest_upgrade_segment",
+          "type": "upgrade",
+          "style": "diamond",
+          "leading_diamond": "\ue0b6",
+          "foreground": "p:color-dark",
+          "background": "p:color-warning-accent",
+          "properties": {
+            "cache_duration": "168h"
+          },
+          "template": "\uf019 {{ .Latest }}{{ .Var.HairSpace }}"
+        },
+        {
+          "alias": "admin_icon_segment",
+          "type": "text",
+          "style": "diamond",
+          "leading_diamond": "\ue0b6",
+          "foreground": "p:color-dark",
+          "background": "p:color-dark",
+          "background_templates": [
+            "{{ if .Root }}p:color-alert-accent{{ end }}"
+          ],
+          "properties": {
+            "cache_duration": "none"
+          },
+          "template": "{{ if .Root }}{{ .Var.ico_shield }}{{ end }}{{ .Var.HairSpace }}"
+        },
+        {
+          "alias": "run_as_whois_segment",
+          "type": "session",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "foreground": "p:color-light",
+          "background": "p:color-dark",
+          "properties": {
+            "cache_duration": "none"
+          },
+          "templates": [
+            "{{ if .Root }}<p:color-alert-accent>{{ .Var.HairSpace }}</>{{ end }}",
+            "{{ if .SSHSession }}<p:color-alert-accent>{{ .Var.ico_ssh }}{{ .Var.HairSpace }}</>{{ end }}",
+            "{{ .UserName }}{{ if .Root }}<p:color-alert-accent>{{ .Var.ico_lightning }}</>{{ else }}@{{ end }}{{ .HostName }}{{ .Var.HairSpace }}"
+          ]
+        },
+        {
+          "alias": "current_directory_segment",
+          "type": "path",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "foreground": "p:color-dark",
+          "background": "p:color-light",
+          "properties": {
+            "cache_duration": "none",
+            "style": "mixed",
+            "mixed_threshold": 3,
+            "folder_icon": "\u2026",
+            "folder_separator_icon": "<p:color-dark>\ue0b1</>",
+            "windows_registry_icon": "\u2026",
+            "interactive": true,
+            "stack_count_enabled": true,
+            "mapped_locations_enabled": true,
+            "home_icon": "\uf015",
+            "mapped_locations": {
+              "C:\\Users": "\uf007 ",
+              "C:\\Windows": "\ue62a ",
+              "C:\\Windows\\temp": "\udb86\uddcb ",
+              "C:\\temp": "\udb86\uddcb "
+            }
+          },
+          "template": "{{ .Var.HairSpace }}{{ if .Writable }}{{else}}<p:color-alert-accent>\uf023{{ .Var.HairSpace }}{{end}}{{ path .Path .Location}}{{ .Var.HairSpace }}</>"
+        },
+        {
+          "alias": "execution_time_segment",
+          "type": "executiontime",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "foreground": "p:color-light",
+          "foreground_templates": [
+            "{{ if lt .Ms 30000 }}p:color-light{{ end }}",
+            "{{ if lt .Ms 3600000 }}p:color-exec-normal{{ end }}",
+            "{{ if lt .Ms 10800000 }}p:color-exec-slow{{ end }}",
+            "{{ if gt .Ms 10800001 }}p:color-exec-longer{{ end }}"
+          ],
+          "background": "p:color-dark",
           "properties": {
             "always_enabled": true,
             "cache_duration": "none",
-            "style": "austin",
-            "threshold": 1
+            "threshold": 1,
+            "style": "austin"
           },
-          "template": "{{ .Var.HairSpace }}{{ if ne .FormattedMs \"0ms\" }}\ufbab{{ else }}<p:color-alert-accent>\ufbab</>{{ end }}{{ .Var.HairSpace }}{{ .FormattedMs }}{{ .Var.HairSpace }}",
-          "foreground": "p:color-light",
-          "powerline_symbol": "\ue0b0",
-          "background": "p:color-dark",
-          "type": "executiontime",
-          "style": "powerline"
+          "template": "{{ .Var.HairSpace }}{{ if eq .FormattedMs \"0ms\" }}<p:color-alert-accent>{{ .Var.ico_timer_sand }}{{ else }}<p:color-light>{{ .Var.ico_timer_sand }}{{ end }}{{ .Var.HairSpace }}</>{{ .FormattedMs }}{{ .Var.HairSpace }}"
         },
         {
+          "type": "exit",
+          "alias": "exit_code_segment",
           "properties": {
             "always_enabled": true,
             "cache_duration": "none"
           },
-          "trailing_diamond": "\ue0b4",
-          "template": "{{ .Var.HairSpace }}{{ if gt .Code 0 }}\uf00d{{ .Var.HairSpace }}{{ .Meaning }}{{ else }}\uf42e{{ end }}",
+          "template": "{{ .Var.HairSpace }}{{ if gt .Code 0 }}{{ .Var.ico_error }}{{ .Var.HairSpace }}{{ .Meaning }}{{ else }}{{ .Var.ico_check }}{{ end }}",
           "foreground": "p:color-dark",
-          "type": "exit",
-          "style": "diamond",
+          "background": "p:color-dark",
           "background_templates": [
             "{{ if gt .Code 0 }}p:color-alert-accent{{ else }}p:color-light{{ end }}"
-          ]
+          ],
+          "style": "diamond",
+          "trailing_diamond": "\ue0b4"
         }
       ]
     },
@@ -230,66 +283,45 @@
       "alignment": "right",
       "overflow": "hide",
       "segments": [
-        // {
-        //   "type": "shell",
-        //   "alias": "shell_name",
-        //   "properties": {
-        //     "cache_duration": "none",
-        //     "mapped_shell_names": {
-        //       "bash": "Bash",
-        //       "powershell": "PS",
-        //       "pwsh": "PWSH"
-        //     }
-        //   },
-        //   "leading_diamond": "\ue0b6",
-        //   "template": "{{ .Var.Terminal_icon }}{{ .Var.HairSpace }}{{ .Name }}{{ .Var.HairSpace }}",
-        //   "foreground": "p:color-light",
-        //   "background": "p:color-dark",
-        //   "style": "diamond"
-        // },
-        // {
-        //   "type": "os",
-        //   "alias": "operating_system_icon",
-        //   "properties": {
-        //     "cache_duration": "none",
-        //     "cache_strategy": "session",
-        //     "alpine": "\uf300",
-        //     "arch": "\uf303",
-        //     "centos": "\uf304",
-        //     "debian": "\uf306",
-        //     "elementary": "\uf309",
-        //     "fedora": "\uf30a",
-        //     "gentoo": "\uf30d",
-        //     "linux": "\ue712",
-        //     "macos": "\ue711",
-        //     "manjaro": "\uf312",
-        //     "mint": "\uf30f",
-        //     "opensuse": "\uf314",
-        //     "raspbian": "\uf315",
-        //     "ubuntu": "\uf31c",
-        //     "windows": "\ue70f"
-        //   },
-        //   "template": "{{ if .WSL }}<p:color-alert-accent>\ue712{{ end }}{{ .Icon }}",
-        //   "foreground": "p:color-dark",
-        //   "powerline_symbol": "<r>\ue0b2</r>",
-        //   "background": "p:color-light",
-        //   "style": "powerline"
-        // },
         {
-          "type": "battery",
-          "alias": "battery_percentage",
+          "alias": "shell_name_segment",
+          "type": "shell",
+          "style": "diamond",
+          "leading_diamond": "\ue0b6",
+          "foreground": "p:color-light",
+          "background": "p:color-dark",
           "properties": {
-            "cache_duration": "3s" //,
-            // "charged_icon": "\udb80\udc79",
-            // "charging_icon": "\udb80\udc84",
-            // "discharging_icon": "\udb80\udc83",
-            // "display_error": false,
-            // "not_charging_icon": "\udb80\udc91"
+            "cache_duration": "none",
+            "mapped_shell_names": {
+              "bash": "Bash",
+              "powershell": "PS",
+              "pwsh": "PWSH"
+            }
           },
-          //"template": "{{ if not .Error }}{{ .Icon }}<f>{{ .Percentage }}{{ .Var.Percent_Icon }}</f>{{ end }}{{ .Error }}",
-          "template": "{{ if eq \"True\" (title (default \"False\" .Env.DISABLE_SEGMENT_BATTERY)) }}{{ else }}{{ if not .Error }}{{ if eq \"Charging\" .State.String }}\uE315{{ else if eq \"Discharging\" .State.String }}\uF062 {{ else if eq \"Full\" .State.String }}~ {{ else }}? {{ end }}{{ if lt .Percentage 15 }}\uF579{{ else if and (gt .Percentage 16) (lt .Percentage 30) }}\uF57A{{ else if and (gt .Percentage 31) (lt .Percentage 45) }}\uF57C{{ else if and (gt .Percentage 46) (lt .Percentage 55)}}\uF57D{{ else if and (gt .Percentage 56) (lt .Percentage 70) }}\uF57E{{ else if and (gt .Percentage 71) (lt .Percentage 90) }}\uF580{{ else }}\uF581{{ end }}{{ .Percentage }}%{{ else }}!{{ end }}{{ end }}",
+          "template": "{{ .Var.ico_terminal }}{{ .Var.HairSpace }}{{ .Name }}{{ .Var.HairSpace }}"
+        },
+        {
+          "alias": "operating_system_icon",
+          "type": "os",
+          "style": "powerline",
+          "powerline_symbol": "<r>\ue0b2</r>",
+          "foreground": "p:color-dark",
+          "background": "p:color-light",
+          "properties": {
+            "cache_duration": "none",
+            "cache_strategy": "session"
+          },
+          "template": "{{ if .WSL }}<p:color-alert-accent>\ue712{{ .Var.HairSpace }}</>{{ end }}{{ .Icon }}{{ .Var.HairSpace }}"
+        },
+        {
+          "alias": "battery_percentage",
+          "type": "battery",
           "powerline_symbol": "<r>\ue0b2</r>",
           "style": "powerline",
+          "properties": {
+            "cache_duration": "3s" //,
+          },
+          "template": "{{ if eq \"True\" (title (default \"False\" .Env.DISABLE_SEGMENT_BATTERY)) }}{{ else }}{{ if not .Error }}{{ if eq \"Charging\" .State.String }}\uE315{{ else if eq \"Discharging\" .State.String }}\uF062 {{ else if eq \"Full\" .State.String }}~ {{ else }}? {{ end }}{{ if lt .Percentage 15 }}\uF579{{ else if and (gt .Percentage 16) (lt .Percentage 30) }}\uF57A{{ else if and (gt .Percentage 31) (lt .Percentage 45) }}\uF57C{{ else if and (gt .Percentage 46) (lt .Percentage 55)}}\uF57D{{ else if and (gt .Percentage 56) (lt .Percentage 70) }}\uF57E{{ else if and (gt .Percentage 71) (lt .Percentage 90) }}\uF580{{ else }}\uF581{{ end }}{{ .Percentage }}{{ .Var.ico_percent }}{{ else }}!{{ end }}{{ end }}",
           "foreground_templates": [
             "{{ if .Error }}p:color-battery-state-error{{ end }}",
             "{{ if lt .Percentage 15 }}p:color-battery-15-less{{ end }}",
@@ -309,29 +341,46 @@
           ]
         },
         {
-          "type": "sysinfo",
           "alias": "memory_usage_percent",
+          "type": "sysinfo",
+          "style": "powerline",
+          "powerline_symbol": "<r>\ue0b2</r>",
           "properties": {
             "cache_duration": "0h0m3s",
             "precision": 2
           },
-          "template": "{{ .Var.RAM_Icon }}{{ round .PhysicalPercentUsed .Precision }}{{ .Var.Percent_Icon }}",
+          "template": "{{ .Var.ico_memory }}{{ round .PhysicalPercentUsed .Precision }}{{ .Var.ico_percent }}",
           "foreground": "p:color-dark",
-          "background": "p:color-light",
-          "style": "powerline",
-          "powerline_symbol": "<r>\ue0b2</r>"
+          "background": "p:color-light"
         },
         {
           "type": "connection",
-          "alias": "wifi_ethernet_cellular_connection",
+          "alias": "network_connection_type",
+          "style": "powerline",
+          "powerline_symbol": "<r>\ue0b2</r>",
           "properties": {
             "cache_duration": "none"
           },
-          "template": "{{ if eq .Type \"wifi\" }}{{ .Var.WiFi }}{{ else if eq .Type \"ethernet\" }}{{ .Var.ethernet }}{{ else if eq .Type \"cellular\" }}<p:color-alert-accent>{{ .Var.cellular }}{{ end }}{{ .Var.HairSpace }}{{ .Var.HairSpace }}",
+          "template": "{{ if eq .Type \"wifi\" }}{{ .Var.ico_wifi_network }}{{ else if eq .Type \"ethernet\" }}{{ .Var.ico_ethernet_network }}{{ else if eq .Type \"cellular\" }}{{ .Var.ico_cellular_network }}{{ end }}{{ .Var.HairSpace }}{{ .Var.HairSpace }}",
           "foreground": "parentForeground",
-          "background": "parentBackground",
+          "foreground_templates": [
+            "{{ if eq .Type \"cellular\" }}p:color-alert-accent{{ end }}",
+            "{{ if eq .Type \"wifi\" }}p:color-day-light{{ end }}"
+          ],
+          "background": "parentBackground"
+        },
+        {
+          "type": "spotify",
           "style": "powerline",
-          "powerline_symbol": "<r>\ue0b2</r>"
+          "powerline_symbol": "",
+          "foreground": "#ffffff",
+          "background": "#1BD760",
+          "properties": {
+            "playing_icon": "\uE602 ",
+            "paused_icon": "\uF8E3 ",
+            "stopped_icon": "\uF04D "
+          },
+          "template": "{{ .Icon }}{{ if ne .Status \"stopped\" }}{{ .Track }}{{ end }}"
         },
         {
           "type": "time",
@@ -340,64 +389,66 @@
             "cache_duration": "none",
             "time_format": "Mon Jan 2"
           },
-          "template": "{{ .Var.Calendar_Icon }}{{ .Var.HairSpace }}{{ .CurrentDate | date .Format }}",
+          "template": "{{ .Var.ico_calendar }}{{ .Var.HairSpace }}{{ .CurrentDate | date .Format }}",
           "foreground": "p:color-light",
           "background": "p:color-dark",
           "style": "powerline",
           "powerline_symbol": "<r>\ue0b2</r>"
-        } //,
-        // {
-        //   "type": "time",
-        //   "alias": "current_time_with_clock",
-        //   "properties": {
-        //     "cache_duration": "none",
-        //     "time_format": "15:04:05·PM"
-        //   },
-        //   "template": "{{ .Var.HairSpace }}{{ .Var.Clock }}{{ .Var.HairSpace }}{{ .CurrentDate | date .Format }}",
-        //   "foreground": "parentForeground",
-        //   "background": "parentBackground",
-        //   "style": "powerline"
-        //  } //,
-        // {
-        //   "type": "time",
-        //   "alias": "beauty_end_line_sun_moon",
-        //   "properties": {
-        //     "cache_duration": "none"
-        //   },
-        //   "template": " {{ if or (gt (now).Hour 17) (lt (now).Hour 6) }}{{ .Var.Moon }}{{ else }}{{ .Var.Sun }}{{ end }}",
-        //   "foreground_templates": [
-        //     "{{ if or (gt (now).Hour 17) (lt (now).Hour 6) }}p:color-night-light{{ else }}p:color-day-light{{ end }}"
-        //   ],
-        //   "background": "parentBackground",
-        //   "style": "diamond",
-        //   "powerline_symbol": "<r>\ue0b2</r>",
-        //   "trailing_diamond": "\ue0b4"
-        // }
-      ]
-    },
-    {
-      "type": "prompt",
-      "alias": "left_prompt_decorations",
-      "alignment": "left",
-      "segments": [
+        },
         {
+          "type": "time",
+          "alias": "current_time_with_clock",
+          "properties": {
+            "cache_duration": "none",
+            "time_format": "15:04:05·PM"
+          },
+          "template": "{{ .Var.HairSpace }}{{ .Varico_clock }}{{ .Var.HairSpace }}{{ .CurrentDate | date .Format }}",
+          "foreground": "parentForeground",
+          "background": "parentBackground",
+          "style": "powerline"
+        },
+        {
+          "type": "time",
+          "alias": "beauty_end_line_sun_moon",
           "properties": {
             "cache_duration": "none"
           },
-          "template": "{{ if eq .Var.IsShowPromptCount \"yes\" }}<p:color-light>{{ .PromptCount }}</>{{ .Var.HairSpace }}{{ end }}{{ .Var.BigArrow }}",
+          "template": " {{ if or (gt (now).Hour 17) (lt (now).Hour 6) }}{{ .Var.ico_moon }}{{ else }}{{ .Var.ico_sun }}{{ end }}",
+          "foreground_templates": [
+            "{{ if or (gt (now).Hour 17) (lt (now).Hour 6) }}p:color-night-light{{ else }}p:color-day-light{{ end }}"
+          ],
+          "background": "parentBackground",
+          "style": "diamond",
+          "powerline_symbol": "<r>\ue0b2</r>",
+          "trailing_diamond": "\ue0b4"
+        }
+      ]
+    },
+    {
+      "alias": "read_prompt",
+      "type": "prompt",
+      "newline": true,
+      "alignment": "left",
+      "force": true,
+      "segments": [
+        {
+          "alias": "prompt_line",
           "type": "text",
           "style": "plain",
           "foreground_templates": [
             "{{ if .Root }}p:color-alert-accent{{ else }}p:color-light{{ end }}"
-          ]
+          ],
+          "background": "transparent",
+          "properties": {
+            "cache_duration": "none"
+          },
+          "template": "{{ .Var.symbol_prompt_arrow }}"
         }
-      ],
-      "newline": true
+      ]
     }
-  ],
-  "version": 3,
-  "final_space": true
+  ]
 }
+// TESTTESTTESTTEST
 // {
 //   "background_templates": [
 //     "{{ if lt (.CummulativeTotal.Seconds | int64) 3600 }}p:c-wakatime-undertime{{ end }}",
